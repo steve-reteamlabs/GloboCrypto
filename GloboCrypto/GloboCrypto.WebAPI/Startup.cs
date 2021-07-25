@@ -37,6 +37,12 @@ namespace GloboCrypto.WebAPI
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "GloboCrypto.WebAPI", Version = "v1" });
             });
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    "Open",
+                    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            });
 
             services.AddHttpClient();
             services.AddSingleton<IHttpService, HttpService>();
@@ -60,6 +66,7 @@ namespace GloboCrypto.WebAPI
 
             app.UseRouting();
 
+            app.UseCors("Open");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
