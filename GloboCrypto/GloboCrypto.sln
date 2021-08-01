@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboCrypto.WebAPI.Services
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboCrypto.Tests", "GloboCrypto.Tests\GloboCrypto.Tests.csproj", "{1408968A-B930-40F9-B5C8-1D57B7906A41}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GloboCrypto.PWA", "GloboCrypto.PWA\GloboCrypto.PWA.csproj", "{14C2B07C-1E39-4447-8F6A-1D8CA8052551}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GloboCrypto.PWA", "GloboCrypto.PWA\GloboCrypto.PWA.csproj", "{14C2B07C-1E39-4447-8F6A-1D8CA8052551}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GloboCrypto.CoinMonitor", "GloboCrypto.CoinMonitor\GloboCrypto.CoinMonitor.csproj", "{209E36EC-B4B5-4045-9FE7-6AA70F9D88C3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{14C2B07C-1E39-4447-8F6A-1D8CA8052551}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14C2B07C-1E39-4447-8F6A-1D8CA8052551}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14C2B07C-1E39-4447-8F6A-1D8CA8052551}.Release|Any CPU.Build.0 = Release|Any CPU
+		{209E36EC-B4B5-4045-9FE7-6AA70F9D88C3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{209E36EC-B4B5-4045-9FE7-6AA70F9D88C3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{209E36EC-B4B5-4045-9FE7-6AA70F9D88C3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{209E36EC-B4B5-4045-9FE7-6AA70F9D88C3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
