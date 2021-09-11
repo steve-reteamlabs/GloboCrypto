@@ -1,4 +1,5 @@
-﻿using GloboCrypto.Models.Data;
+﻿using GloboCrypto.Models.Authentication;
+using GloboCrypto.Models.Data;
 using GloboCrypto.PWA.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -15,5 +16,7 @@ namespace GloboCrypto.PWA.Services
         Task<LocalSettings> GetLocalSettingsAsync();
         Task SaveLocalSettingsAsync(LocalSettings settings);
         Task<bool> IsCacheInvalidAsync();
+        Task<AuthToken> GetSavedAuthToken();
+        Task SaveAuthToken(AuthToken authToken);
     }
 }

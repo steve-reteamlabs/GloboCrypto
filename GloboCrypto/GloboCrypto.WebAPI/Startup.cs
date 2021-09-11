@@ -16,6 +16,13 @@ using GloboCrypto.WebAPI.Services.Events;
 using GloboCrypto.WebAPI.Services.Coins;
 using GloboCrypto.WebAPI.Services.Http;
 using GloboCrypto.WebAPI.Services.Notifications;
+using GloboCrypto.WebAPI.Services.Authentication;
+using Microsoft.AspNetCore.Authorization;
+using GloboCrypto.WebAPI.Handlers;
+using GloboCrypto.WebAPI.Models;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Text;
 
 namespace GloboCrypto.WebAPI
 {
@@ -27,6 +34,9 @@ namespace GloboCrypto.WebAPI
         }
 
         public IConfiguration Configuration { get; }
+
+        private string APIKey => Configuration["APIKey"];
+        private string Secret => Configuration["Secret"];
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -50,6 +60,35 @@ namespace GloboCrypto.WebAPI
             services.AddSingleton<IEventService, EventService>();
             services.AddSingleton<ICoinService, CoinService>();
             services.AddSingleton<INotificationService, NotificationService>();
+            services.AddSingleton<ITokenService, TokenService>();
+            services.AddSingleton<IAuthenticationService, AuthenticationService>();
+
+            services.AddTransient<IAuthorizationHandler, ApiKeyRequirementHandler>();
+            services.AddAuthorization(authConfig =>
+            {
+                authConfig.AddPolicy("ApiKeyPolicy",
+                    policyBuilder => policyBuilder
+                    .AddRequirements(new ApiKeyRequirement(new[] { APIKey })));
+            });
+            var key = Encoding.ASCII.GetBytes(Secret);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+                };
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -67,6 +106,7 @@ namespace GloboCrypto.WebAPI
             app.UseRouting();
 
             app.UseCors("Open");
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -21,10 +21,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Handlers\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\GloboCrypto.Models\GloboCrypto.Models.csproj" />
   </ItemGroup>
 
