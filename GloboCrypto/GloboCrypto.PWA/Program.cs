@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using GloboCrypto.PWA.Handlers;
 
 namespace GloboCrypto.PWA
 {
@@ -23,7 +24,8 @@ namespace GloboCrypto.PWA
             builder.Services.AddBlazoredLocalStorage();
             builder.Services.AddBlazoredToast();
 
-            builder.Services.AddHttpClient("coinapi");
+            builder.Services.AddTransient<CoinAPIMessageHandler>(); 
+            builder.Services.AddHttpClient("coinapi").AddHttpMessageHandler<CoinAPIMessageHandler>();
             builder.Services.AddTransient<IAppSettings, AppSettings>();
             builder.Services.AddTransient<IAppStorageService, AppStorageService>();
             builder.Services.AddScoped<ICoinAPIService, CoinAPIService>();
