@@ -1,6 +1,13 @@
 ﻿@inherits LayoutComponentBase
 
-    <BlazoredToasts />
+@using Blazored.LocalStorage
+@using GloboCrypto.PWA.Models
+@using GloboCrypto.PWA.Services
+
+@inject IAppStorageService AppStorageService
+@inject IJSRuntime JSRuntime
+
+<BlazoredToasts />
 
 <div class="page">
 
@@ -10,3 +17,22 @@
         </div>
     </div>
 </div>
+
+@code
+{
+    private LocalSettings localSettings;
+
+    protected override async Task OnInitializedAsync()
+    {
+        localSettings = (await AppStorageService.GetLocalSettingsAsync()) ?? new LocalSettings { RefreshInterval = 30, Currency = "GBP", PriceChangeInterval = "1d" };
+        try
+        {
+            await JSRuntime.InvokeVoidAsync("DarkModeInterop.ChangeTheme", localSettings.DarkModeEnabled);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in MainLayout.razor::OnInitializedAsync: {ex.ToString()}");
+        }
+    }
+
+}
