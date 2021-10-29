@@ -46,6 +46,21 @@
                 window.location.href = window.location.href;
             }
         }
+
+        window.DarkModeInterop = (function () {
+            const _changeTheme = function (isDark) {
+                if (isDark) {
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                }
+            };
+
+            return {
+                ChangeTheme: _changeTheme
+            };
+        })();
+
     </script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
