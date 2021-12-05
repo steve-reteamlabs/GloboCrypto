@@ -198,6 +198,7 @@ else
     private async void OnToggleDarkMode(bool val)
     {
         localSettings.DarkModeEnabled = val;
+        await JSRuntime.InvokeVoidAsync("DarkModeInterop.ChangeTheme", val);
         await SaveSettings();
     }
 
