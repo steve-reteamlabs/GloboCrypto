@@ -34,13 +34,13 @@ namespace GloboCrypto.PWA.Services
 
         public async Task SubscribeToNotifications(NotificationSubscription subscription)
         {
-            var response = await HttpClient.PutAsJsonAsync($"{AppSettings.APIHost}/api/notifications/subscribe", subscription);
+            var response = await HttpClient.PutAsJsonAsync($"{AppSettings.APIHost}/api/notification/subscribe", subscription);
             response.EnsureSuccessStatusCode();
         }
 
         public async Task UpdateSubscriptions(string coinIds)
         {
-            var response = await HttpClient.GetAsync($"{AppSettings.APIHost}/api/notifications/update-subscription?coinIds={coinIds}");
+            var response = await HttpClient.GetAsync($"{AppSettings.APIHost}/api/notification/update-subscription?coinIds={coinIds}");
         }
 
     }

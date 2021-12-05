@@ -49,9 +49,11 @@ namespace GloboCrypto.WebAPI.Services.Notifications
                         iconurl = coinInfo.LogoUrl,
                     });
                     await webPushClient.SendNotificationAsync(pushSubscription, payload, vapidDetails);
+                    await EventService.LogCoinUpdateNotification(subscription.UserId, coinId);
                 }
                 catch (WebPushException ex)
                 {
+                    await EventService.LogError("Error sending push notification", ex);
                 }
             }
         }
@@ -98,6 +100,11 @@ namespace GloboCrypto.WebAPI.Services.Notifications
                     EventService.LogSubscriptionUpdate(userId);
                 }
             });
+        }
+
+        public async Task<IEnumerable<NotificationSubscription>> GetSubscriptions()
+        {
+            return await Task.Run(() => LocalDb.All<NotificationSubscription>());
         }
 
     }
