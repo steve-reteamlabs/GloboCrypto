@@ -6,12 +6,20 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.9" />
+    <PackageReference Include="Microsoft.AspNetCore.Proxy" Version="0.2.0" />
+    <PackageReference Include="MudBlazor" Version="5.0.8" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\GloboCrypto.Models\GloboCrypto.Models.csproj" />
     <ProjectReference Include="..\GloboCrypto.WebAPI.Services\GloboCrypto.WebAPI.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\" />
+    <Folder Include="Pages\" />
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

@@ -55,7 +55,7 @@ namespace GloboCrypto.WebAPI.Services.Events
             {
                 UserId = userId,
                 EventType = EventLogEntryType.SubscriptionUpdate,
-                Message = $"user {userId} updated game list"
+                Message = $"user {userId} updated coin list"
             };
             await LogEntryAsync(logEntry);
         }

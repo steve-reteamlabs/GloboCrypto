@@ -23,6 +23,7 @@ using GloboCrypto.WebAPI.Models;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
+using MudBlazor.Services;
 
 namespace GloboCrypto.WebAPI
 {
@@ -41,6 +42,9 @@ namespace GloboCrypto.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddRazorPages();
+            services.AddServerSideBlazor();
+            services.AddMudServices();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -100,8 +104,14 @@ namespace GloboCrypto.WebAPI
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "GloboCrypto.WebAPI v1"));
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                app.UseHsts();
+            }
 
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
 
             app.UseRouting();
 
@@ -111,6 +121,8 @@ namespace GloboCrypto.WebAPI
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapBlazorHub();
+                endpoints.MapFallbackToPage("/_Host"); 
                 endpoints.MapControllers();
             });
         }
